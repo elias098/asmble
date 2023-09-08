@@ -1,9 +1,0 @@
-[package]
-name = "rust_regex"
-version = "0.1.0"
-
-[lib]
-crate-type = ["cdylib"]
-
-[dependencies]
-regex = "0.2"
