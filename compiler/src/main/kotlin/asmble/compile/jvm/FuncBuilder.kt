@@ -454,6 +454,29 @@ open class FuncBuilder {
         is Node.Instr.F64ReinterpretI64 ->
             applyConv(ctx, fn, Long::class.ref, Double::class.ref,
                 java.lang.Double::class.invokeStatic("longBitsToDouble", Double::class, Long::class))
+
+        // Sign-extension operators extension
+        is Node.Instr.I32ExtendS8 ->
+            applyUnary(ctx, fn, Int::class.ref, InsnNode(Opcodes.I2B))
+        is Node.Instr.I32ExtendS16 ->
+            applyUnary(ctx, fn, Int::class.ref, InsnNode(Opcodes.I2S))
+        is Node.Instr.I64ExtendS8 ->
+            fn.popExpecting(Long::class.ref).addInsns(
+                    InsnNode(Opcodes.L2I),
+                    InsnNode(Opcodes.I2B),
+                    InsnNode(Opcodes.I2L)
+            ).push(Long::class.ref)
+        is Node.Instr.I64ExtendS16 ->
+            fn.popExpecting(Long::class.ref).addInsns(
+                    InsnNode(Opcodes.L2I),
+                    InsnNode(Opcodes.I2S),
+                    InsnNode(Opcodes.I2L)
+            ).push(Long::class.ref)
+        is Node.Instr.I64ExtendS32 ->
+            fn.popExpecting(Long::class.ref).addInsns(
+                    InsnNode(Opcodes.L2I),
+                    InsnNode(Opcodes.I2L)
+            ).push(Long::class.ref)
     }
 
     fun popForBlockEscape(ctx: FuncContext, fn: Func, block: Func.Block) =

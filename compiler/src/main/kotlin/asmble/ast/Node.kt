@@ -377,6 +377,13 @@ sealed class Node {
         object I64ReinterpretF64 : Instr(), Args.None
         object F32ReinterpretI32 : Instr(), Args.None
         object F64ReinterpretI64 : Instr(), Args.None
+
+        // Sign-extension operators extension
+        object I32ExtendS8 : Instr(), Args.None
+        object I32ExtendS16 : Instr(), Args.None
+        object I64ExtendS8 : Instr(), Args.None
+        object I64ExtendS16 : Instr(), Args.None
+        object I64ExtendS32 : Instr(), Args.None
     }
 
     sealed class InstrOp<out A : Instr.Args> {
@@ -660,6 +667,13 @@ sealed class Node {
                 opMapEntry("i64.reinterpret/f64", 0xbd, ReinterpretOp::NoArg, Instr.I64ReinterpretF64, Instr.I64ReinterpretF64::class)
                 opMapEntry("f32.reinterpret/i32", 0xbe, ReinterpretOp::NoArg, Instr.F32ReinterpretI32, Instr.F32ReinterpretI32::class)
                 opMapEntry("f64.reinterpret/i64", 0xbf, ReinterpretOp::NoArg, Instr.F64ReinterpretI64, Instr.F64ReinterpretI64::class)
+
+                // Sign-extension operators extension
+                opMapEntry("i32.extend8_s", 0xc0, ConvertOp::NoArg, Instr.I32ExtendS8, Instr.I32ExtendS8::class)
+                opMapEntry("i32.extend16_s", 0xc1, ConvertOp::NoArg, Instr.I32ExtendS16, Instr.I32ExtendS16::class)
+                opMapEntry("i64.extend8_s", 0xc2, ConvertOp::NoArg, Instr.I64ExtendS8, Instr.I64ExtendS8::class)
+                opMapEntry("i64.extend16_s", 0xc3, ConvertOp::NoArg, Instr.I64ExtendS16, Instr.I64ExtendS16::class)
+                opMapEntry("i64.extend32_s", 0xc4, ConvertOp::NoArg, Instr.I64ExtendS32, Instr.I64ExtendS32::class)
 
                 this.strToOpMap = strToOpMap
                 this.classToOpMap = classToOpMap

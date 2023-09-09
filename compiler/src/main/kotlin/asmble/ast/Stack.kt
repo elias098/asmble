@@ -140,6 +140,10 @@ data class Stack(
             is Node.Instr.F64ConvertSI64, is Node.Instr.F64ConvertUI64,
                 is Node.Instr.F64ReinterpretI64 -> popI64() + pushF64()
             is Node.Instr.F64PromoteF32 -> popF32() + pushF64()
+
+            // Sign-extension operators extension
+            is Node.Instr.I32ExtendS8, is Node.Instr.I32ExtendS16 -> popI32() + pushI32()
+            is Node.Instr.I64ExtendS8, is Node.Instr.I64ExtendS16, is Node.Instr.I64ExtendS32 -> popI64() + pushI64()
         }
     }
 

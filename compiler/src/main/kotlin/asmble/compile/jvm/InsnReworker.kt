@@ -281,6 +281,10 @@ open class InsnReworker {
         is Node.Instr.F64ConvertSI64, is Node.Instr.F64ConvertUI64, is Node.Instr.F64PromoteF32,
         is Node.Instr.I32ReinterpretF32, is Node.Instr.I64ReinterpretF64, is Node.Instr.F32ReinterpretI32,
         is Node.Instr.F64ReinterpretI64 -> POP_PARAM + PUSH_RESULT
+
+        // Sign-extension operators extension
+        is Node.Instr.I32ExtendS8, is Node.Instr.I32ExtendS16, is Node.Instr.I64ExtendS8,
+        is Node.Instr.I64ExtendS16, is Node.Instr.I64ExtendS32 -> POP_PARAM + PUSH_RESULT
     }
 
     fun nonAdjacentMemAccesses(insns: List<Insn>) = insns.fold(0 to false) { (count, lastCouldHaveMem), insn ->

@@ -399,6 +399,14 @@ open class Interpreter {
                 is Node.Instr.I64ReinterpretF64 -> next { push(java.lang.Double.doubleToRawLongBits(popDouble())) }
                 is Node.Instr.F32ReinterpretI32 -> next { push(java.lang.Float.intBitsToFloat(popInt())) }
                 is Node.Instr.F64ReinterpretI64 -> next { push(java.lang.Double.longBitsToDouble(popLong())) }
+
+                // Sign-extension operators extension
+                // Unsure if the last .toInt() is necessary
+                is Node.Instr.I32ExtendS8 -> next { push(popInt().toByte().toInt()) }
+                is Node.Instr.I32ExtendS16 -> next { push(popInt().toShort().toInt()) }
+                is Node.Instr.I64ExtendS8 -> next { push(popLong().toByte().toLong()) }
+                is Node.Instr.I64ExtendS16 -> next { push(popLong().toShort().toLong()) }
+                is Node.Instr.I64ExtendS32 -> next { push(popLong().toInt().toLong()) }
             }
         }
     }
