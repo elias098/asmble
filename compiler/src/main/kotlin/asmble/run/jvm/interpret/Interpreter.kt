@@ -640,7 +640,7 @@ open class Interpreter {
             var blockDepth = 0
             val index = func.instructions.drop(insnIndex + 1).indexOfFirst { insn ->
                 // Increase block depth if necessary
-                when (insn) { is Node.Instr.Block, is Node.Instr.Loop, is Node.Instr.If -> blockDepth++ }
+                when (insn) { is Node.Instr.Block, is Node.Instr.Loop, is Node.Instr.If -> blockDepth++ else -> {}}
                 // If we're at the end of ourself but not looking for end, short-circuit a failure
                 if (blockDepth == 0 && !end && insn is Node.Instr.End) return null
                 // Did we find an end or an else on ourself?

@@ -9,9 +9,12 @@ buildscript {
         }
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'me.champeau.gradle:jmh-gradle-plugin:0.4.5'
     }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version" apply false
 }
 
 allprojects {
@@ -43,15 +46,16 @@ project(':annotations') {
 }
 
 project(':compiler') {
+    apply plugin: "org.jetbrains.kotlin.jvm"
     apply plugin: 'application'
-
+    
     applicationName = "asmble"
     mainClassName = "asmble.cli.MainKt"
 
     dependencies {
-        implementation project(':annotations')
+        api project(':annotations')
         implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-        implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
         implementation "org.ow2.asm:asm-tree:$asm_version"
         implementation "org.ow2.asm:asm-util:$asm_version"
         implementation "org.ow2.asm:asm-commons:$asm_version"
