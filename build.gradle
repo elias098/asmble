@@ -21,6 +21,12 @@ allprojects {
     apply plugin: 'java-library'
     group 'com.github.elias098.asmble'
 
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(8)
+        }
+    }
+
     repositories {
         mavenCentral()
     }
