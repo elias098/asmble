@@ -16,7 +16,7 @@ buildscript {
 
 allprojects {
     group 'com.github.elias098.asmble'
-    version '1.0.0'
+    version = System.getenv("RELEASE_VERSION") ?: "NO-GIT-TAG-SET"
 
     apply plugin: 'java-library'
     group 'com.github.elias098.asmble'
