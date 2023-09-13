@@ -28,6 +28,8 @@ class LargeInitFuncTest : TestBase() {
         }
         val cls = cl.defineClass("${ctx.packageName}.${ctx.className}", bytes)
         // Just make sure it can init
-        cls.declaredConstructors.first().newInstance(600 * 65536)
+        val constructor = cls.declaredConstructors.find { it.parameterTypes.firstOrNull() == Int::class.java }
+                ?: throw Exception("Unable to find constructor");
+        constructor.newInstance(600 * 65536)
     }
 }
